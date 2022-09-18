@@ -83,6 +83,8 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
+  //
+
   TextField buildPasswordTextField() {
     return TextField(
       decoration: InputDecoration(
