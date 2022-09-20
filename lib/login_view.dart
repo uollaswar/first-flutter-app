@@ -15,7 +15,9 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
   TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   String email = '';
+  String password = '';
   late final SharedPreferences prefs;
 
   @override
@@ -88,8 +90,11 @@ class _LoginViewState extends State<LoginView> {
               setState(() {
                 email = prefs.getString('email') ?? '';
               });
-              print(email);
+              setState(() {
+                email = prefs.getString('password') ?? '';
+              });
               print(prefs.getString('email'));
+              print(prefs.getString('password'));
             },
             child: Text('SHOW EMAIL')),
         Container(
@@ -98,8 +103,10 @@ class _LoginViewState extends State<LoginView> {
               onPressed: () async {
                 if (emailController.text.isNotEmpty) {
                   prefs.setString('email', emailController.text);
+                  prefs.setString('password', emailController.text);
                   setState(() {
                     email = emailController.text;
+                    email = passwordController.text;
                   });
                   Navigator.pushAndRemoveUntil(
                     context,
@@ -116,7 +123,8 @@ class _LoginViewState extends State<LoginView> {
               },
               child: Text("Login")),
         ),
-        Text(email)
+        Text(email),
+        Text(password)
       ],
     );
   }
