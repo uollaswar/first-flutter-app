@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:html';
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tomorrow_caballos/widgets/logos_widget.dart';
 
 import 'screens/second_route.dart';
@@ -15,9 +15,23 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
   TextEditingController emailController = TextEditingController();
+  String email = '';
+  late final SharedPreferences prefs;
+
+  @override
+  void initState() {
+    initSharedPrefs();
+    super.initState();
+  }
+
+  Future<void> initSharedPrefs() async {
+    prefs = await SharedPreferences.getInstance();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -27,29 +41,14 @@ class _LoginViewState extends State<LoginView> {
             buildAlignText(),
             buildEmailTextField(),
             buildPasswordTextField(),
-            bueldLoginButton(context),
+            buildLoginButton(context),
             SizedBox(height: 25),
             Text(
               'Or login with...',
               style: TextStyle(fontSize: 13, fontWeight: FontWeight.w200),
             ),
             SizedBox(height: 15),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                LogosWidget(
-                  link: 'assets/GoogleLogo.png',
-                ),
-                SizedBox(width: 15),
-                LogosWidget(
-                  link: 'assets/FacebookLogo.png',
-                ),
-                SizedBox(width: 15),
-                LogosWidget(
-                  link: 'assets/AppleLogo.png',
-                ),
-              ],
-            ),
+            buildFANGlogin(),
             SizedBox(height: 15),
             Text(
               'New to iPlaceSquaresInBoxes? L I N K',
@@ -62,24 +61,63 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
-  Container bueldLoginButton(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(top: 10.0),
-      child: ElevatedButton(
-          onPressed: () {
-            if (emailController.text.isNotEmpty) {
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (context) => const SecondRoute()),
-                  (Route<dynamic> route) => false);
-            } else {
-              showDialog(
-                  context: context,
-                  builder: (context) =>
-                      AlertDialog(title: Text('wrong password jackass')));
-            }
-          },
-          child: Text("Login")),
+  Row buildFANGlogin() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: const [
+        LogosWidget(
+          link: 'assets/googleLogo.png',
+        ),
+        SizedBox(width: 10),
+        LogosWidget(
+          link: 'assets/FacebookLogo.png',
+        ),
+        SizedBox(width: 10),
+        LogosWidget(
+          link: 'assets/appleLogo.png',
+        ),
+      ],
+    );
+  }
+
+  Widget buildLoginButton(BuildContext context) {
+    return Row(
+      children: [
+        ElevatedButton(
+            onPressed: () {
+              setState(() {
+                email = prefs.getString('email') ?? '';
+              });
+              print(email);
+              print(prefs.getString('email'));
+            },
+            child: Text('SHOW EMAIL')),
+        Container(
+          margin: const EdgeInsets.only(top: 10.0),
+          child: ElevatedButton(
+              onPressed: () async {
+                if (emailController.text.isNotEmpty) {
+                  prefs.setString('email', emailController.text);
+                  setState(() {
+                    email = emailController.text;
+                  });
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SecondRoute()),
+                    (Route<dynamic> route) => false,
+                  );
+                } else {
+                  showDialog(
+                      context: context,
+                      builder: (context) =>
+                          AlertDialog(title: Text('wrong password jackass')));
+                }
+              },
+              child: Text("Login")),
+        ),
+        Text(email)
+      ],
     );
   }
 

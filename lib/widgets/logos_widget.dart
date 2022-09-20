@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:html';
 
 import 'package:flutter/material.dart';
 
@@ -20,7 +19,7 @@ class LogosWidget extends StatelessWidget {
         print(link);
       },
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 15, horizontal: 40),
+        padding: EdgeInsets.symmetric(vertical: 15, horizontal: 30),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(13),
             border: Border.all(width: 1, color: Colors.black.withOpacity(0.1))),

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "61791890692",
+    "project_id": "wonder-demo",
+    "storage_bucket": "wonder-demo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:61791890692:android:0418a8197ef603c5737451",
+        "android_client_info": {
+          "package_name": "com.example.tomorrow_caballos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "61791890692-hldhq7bsigskork1khnauljok3ubmr5o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDekDkhQtpeGk1VWKHT4dCENTsCCzd3BaA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "61791890692-hldhq7bsigskork1khnauljok3ubmr5o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
