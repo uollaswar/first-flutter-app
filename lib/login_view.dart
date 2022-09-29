@@ -16,6 +16,8 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  FocusNode emailFocusNode = FocusNode();
+  FocusNode passwordFocusNode = FocusNode();
   String email = '';
   String password = '';
   late final SharedPreferences prefs;
@@ -108,6 +110,8 @@ class _LoginViewState extends State<LoginView> {
                     email = emailController.text;
                     email = passwordController.text;
                   });
+                  emailFocusNode.unfocus();
+                  passwordFocusNode.unfocus();
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
@@ -133,6 +137,8 @@ class _LoginViewState extends State<LoginView> {
 
   TextField buildPasswordTextField() {
     return TextField(
+      controller: passwordController,
+      focusNode: passwordFocusNode,
       decoration: InputDecoration(
         prefixIcon: Icon(Icons.lock),
         labelText: "password",
@@ -151,6 +157,7 @@ class _LoginViewState extends State<LoginView> {
   TextField buildEmailTextField() {
     return TextField(
       controller: emailController,
+      focusNode: emailFocusNode,
       decoration: InputDecoration(
           prefixIcon: Icon(Icons.email_sharp), labelText: "email"),
     );
