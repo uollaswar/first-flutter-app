@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:tomorrow_caballos/login_view.dart';
+import 'package:tomorrow_caballos/screens/profiles.dart';
+import 'package:tomorrow_caballos/utilities/locator.dart' as di;
 
-void main() => runApp(const MyApp());
+Future<void> main() async {
+  await di.init();
+  runApp(const MyApp());
+}
 
 //fc
 
@@ -10,6 +15,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: 'Material App', home: LoginView());
+    return MaterialApp(title: 'Material App', home: DioCallerScreen());
   }
 }

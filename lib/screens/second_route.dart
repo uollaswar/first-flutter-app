@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:tomorrow_caballos/screens/dio_call_screen.dart';
+import 'package:tomorrow_caballos/screens/profiles.dart';
 import 'package:tomorrow_caballos/service/dio_caller.dart';
 
 import '../login_view.dart';
