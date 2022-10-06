@@ -4,7 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:tomorrow_caballos/screens/profiles.dart';
 import 'package:tomorrow_caballos/service/dio_caller.dart';
 
-import '../login_view.dart';
+import '../utilities/locator.dart';
+import 'login_view.dart';
 import '../provider/second_route_notifier.dart';
 
 class SecondRoute extends StatelessWidget {
@@ -13,7 +14,7 @@ class SecondRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-        create: (context) => SecondRouteNotifier(),
+        create: (context) => locator<SecondRouteNotifier>(),
         child: Consumer<SecondRouteNotifier>(
           builder: (context, myType, child) => Scaffold(
             appBar: AppBar(
@@ -21,41 +22,43 @@ class SecondRoute extends StatelessWidget {
             ),
             body: Padding(
               padding: const EdgeInsets.all(20.0),
-              child: Stack(
-                children: [
-                  Column(children: [
-                    SizedBox(
-                      height: 30,
-                    ),
-                    facebooIsGood(),
-                    build4Buttons(myType),
-                    buildBottomText(context),
-                    myType.image != null
-                        ? Image.file(myType.image!,
-                            width: 90, height: 90, fit: BoxFit.cover)
-                        : Container(
-                            height: 90,
-                            child: Image.network(
-                              'https://picsum.photos/250?image=9',
+              child: SingleChildScrollView(
+                child: Stack(
+                  children: [
+                    Column(children: [
+                      SizedBox(
+                        height: 30,
+                      ),
+                      facebooIsGood(),
+                      build4Buttons(myType),
+                      buildBottomText(context),
+                      myType.image != null
+                          ? Image.file(myType.image!,
+                              width: 90, height: 90, fit: BoxFit.cover)
+                          : SizedBox(
+                              height: 90,
+                              child: Image.network(
+                                'https://picsum.photos/250?image=9',
+                              ),
                             ),
-                          ),
-                    buildCustomButton(
-                      title: 'pick from gallery',
-                      icon: Icons.image_outlined,
-                      onClick: () => (myType.getImage(ImageSource.gallery)),
-                    ),
-                    buildCustomButton(
-                      title: 'take a photo',
-                      icon: Icons.camera_outlined,
-                      onClick: () => myType.getImage(ImageSource.camera),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    buildNavigate2DioCaller(context)
-                  ]),
-                  buildFbLogo(),
-                ],
+                      buildCustomButton(
+                        title: 'pick from gallery',
+                        icon: Icons.image_outlined,
+                        onClick: () => (myType.getImage(ImageSource.gallery)),
+                      ),
+                      buildCustomButton(
+                        title: 'take a photo',
+                        icon: Icons.camera_outlined,
+                        onClick: () => myType.getImage(ImageSource.camera),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      buildNavigate2DioCaller(context)
+                    ]),
+                    buildFbLogo(),
+                  ],
+                ),
               ),
             ),
             bottomNavigationBar: buildBottomNavbar(),
